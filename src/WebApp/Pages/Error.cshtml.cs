@@ -22,6 +22,7 @@ namespace WebApp.Pages
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            _logger.LogError("An error occurred with RequestId: {RequestId}", RequestId);
         }
     }
 
