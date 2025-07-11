@@ -24,21 +24,21 @@ jobs:
           dotnet-version: '9.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ./src/WebApp/WebApp.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ./src/WebApp/WebApp.csproj -c Release -o "${{env.DOTNET_ROOT}}/webapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: web-app
+          path: ${{env.DOTNET_ROOT}}/webapp
 
   deploy:
     runs-on: windows-latest
     needs: build
-    
+
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
@@ -47,8 +47,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-      
+          name: web-app
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -63,4 +63,4 @@ jobs:
           app-name: 'app-dotazure-webapp-dev-001'
           slot-name: 'Production'
           package: .
-          
+

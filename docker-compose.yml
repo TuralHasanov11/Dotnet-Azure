@@ -1,0 +1,7 @@
+services:
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    container_name: "webapp"
+    build:
+      context: .
+      dockerfile: src/WebApp/Dockerfile
