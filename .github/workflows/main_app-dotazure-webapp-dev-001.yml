@@ -63,4 +63,3 @@ jobs:
           app-name: 'app-dotazure-webapp-dev-001'
           slot-name: 'Production'
           package: .
-
