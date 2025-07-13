@@ -1,7 +1,4 @@
-### Tutorial: Access Microsoft Graph from a secured .NET app as the app
-
-```sh
-az login
+﻿az login
 
 webAppName="app-dotazure-webapp-dev-001"
 
@@ -16,4 +13,3 @@ uri=https://graph.microsoft.com/v1.0/servicePrincipals/$spId/appRoleAssignments
 body="{'principalId':'$spId','resourceId':'$graphResourceId','appRoleId':'$appRoleId'}"
 
 az rest --method post --uri $uri --body $body --headers "Content-Type=application/json"
-```

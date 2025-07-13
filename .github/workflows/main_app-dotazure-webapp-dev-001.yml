@@ -9,6 +9,13 @@ on:
       - main
   workflow_dispatch:
 
+
+env:
+  AZURE_WEBAPP_NAME: app-dotazure-webapp-dev-001   # Set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '9.x'          # Set this to the dot net version to use
+
+
 jobs:
   build:
     runs-on: windows-latest
@@ -21,7 +28,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Build with dotnet
         run: dotnet build ./src/WebApp/WebApp.csproj --configuration Release
@@ -60,6 +67,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-dotazure-webapp-dev-001'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: .
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'

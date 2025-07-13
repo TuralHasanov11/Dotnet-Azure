@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApp.Pages
+namespace WebApp.Pages;
+
+public class PrivacyModel : PageModel
 {
-    public class PrivacyModel : PageModel
+    public PrivacyModel()
     {
-        public PrivacyModel()
-        {
-        }
-
-        public void OnGet()
-        {
-        }
     }
 
+    public void OnGet()
+    {
+        // This method is intentionally left empty.
+    }
 }

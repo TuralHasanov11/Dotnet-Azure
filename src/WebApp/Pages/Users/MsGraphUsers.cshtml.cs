@@ -17,7 +17,7 @@ public class MsGraphUsers : PageModel
 
         using var graphServiceClient = new GraphServiceClient(credential, scopes);
 
-        ICollection<MSGraphUser>? msGraphUsers = new List<MSGraphUser>();
+        ICollection<MSGraphUser>? msGraphUsers = [];
 
         try
         {
@@ -36,6 +36,6 @@ public class MsGraphUsers : PageModel
             string msg = ex.Message;
         }
 
-        Users = msGraphUsers ?? new List<MSGraphUser>();
+        Users = msGraphUsers ?? [];
     }
 }

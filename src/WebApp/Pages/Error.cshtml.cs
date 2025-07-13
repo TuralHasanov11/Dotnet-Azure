@@ -8,10 +8,8 @@ namespace WebApp.Pages
     [IgnoreAntiforgeryToken]
     public class ErrorModel : PageModel
     {
-        public string? RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
+        private const string ErrorMessageTemplate = "Error occurred with RequestId: {RequestId}";
+        private static readonly EventId ErrorEventId = new(1, "ErrorOccurred");
         private readonly ILogger<ErrorModel> _logger;
 
         public ErrorModel(ILogger<ErrorModel> logger)
@@ -19,11 +17,14 @@ namespace WebApp.Pages
             _logger = logger;
         }
 
+        public string? RequestId { get; set; }
+
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-            _logger.LogError("An error occurred with RequestId: {RequestId}", RequestId);
+            _logger.LogError(ErrorEventId, ErrorMessageTemplate, RequestId);
         }
     }
-
 }
