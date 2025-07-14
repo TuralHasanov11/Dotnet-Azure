@@ -17,3 +17,12 @@ body="{'principalId':'$spId','resourceId':'$graphResourceId','appRoleId':'$appRo
 
 az rest --method post --uri $uri --body $body --headers "Content-Type=application/json"
 ```
+
+
+### Create a webjob
+```sh
+Compress-Archive -Path run.sh, WebJob1\bin\Debug\net9.0\win-x64\* -DestinationPath WebJob1.zip
+
+Compress-Archive -Path run.sh -DestinationPath WebJob1.zip
+Compress-Archive -Path WebJob1\bin\Debug\net9.0\win-x64\* -DestinationPath WebJob1.zip -Update
+```

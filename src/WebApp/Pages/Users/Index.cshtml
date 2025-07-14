@@ -1,0 +1,187 @@
+@page
+@model WebApp.Pages.Users.IndexModel
+@{
+    ViewData["Title"] = "Current User Information";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    @if (Model.User.IsAuthenticated)
+    {
+        <div class="alert alert-success" role="alert">
+            <i class="fas fa-check-circle"></i> User is authenticated
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Basic Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td><strong>User ID:</strong></td>
+                                    <td><code>@(Model.User.UserId ?? "Not available")</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Name:</strong></td>
+                                    <td>@(Model.User.Name ?? "Not available")</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Identity Provider:</strong></td>
+                                    <td>
+                                        <span class="badge bg-info">@(Model.User.IdentityProvider ?? "Unknown")</span>
+                                    </td>
+                                </tr>
+                                @if (Model.User.TokenExpiresOn.HasValue)
+                                {
+                                    <tr>
+                                        <td><strong>Token Expires:</strong></td>
+                                        <td>@Model.User.TokenExpiresOn.Value.ToString("yyyy-MM-dd HH:mm:ss zzz")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                @if (Model.User.Principal?.Claims?.Any() == true)
+                {
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">User Claims</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Claim Type</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var claim in Model.User.Principal.Claims)
+                                        {
+                                            <tr>
+                                                <td><code>@claim.Typ</code></td>
+                                                <td>
+                                                    @if (claim.Typ?.Contains("email", StringComparison.OrdinalIgnoreCase) == true ||
+                                                         claim.Typ?.Contains("name", StringComparison.OrdinalIgnoreCase) == true ||
+                                                         claim.Typ?.Contains("upn", StringComparison.OrdinalIgnoreCase) == true)
+                                                    {
+                                                        @claim.Val
+                                                    }
+                                                    else
+                                                    {
+                                                        <code>@claim.Val</code>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.User.Principal != null)
+                {
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Principal Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Authentication Type:</strong></td>
+                                        <td><code>@(Model.User.Principal.Auth_typ ?? "Not specified")</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Name Claim Type:</strong></td>
+                                        <td><code>@(Model.User.Principal.Name_typ ?? "Not specified")</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Role Claim Type:</strong></td>
+                                        <td><code>@(Model.User.Principal.Role_typ ?? "Not specified")</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Authentication Headers</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.User.AuthHeaders.Any())
+                        {
+                            <div class="accordion" id="headersAccordion">
+                                @foreach (var header in Model.User.AuthHeaders)
+                                {
+                                    var headerId = $"header_{header.Key.Replace("-", "_")}";
+                                    <div class="accordion-item">
+                                        <h6 class="accordion-header" id="@(headerId)_heading">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#@headerId" aria-expanded="false" aria-controls="@headerId">
+                                                <small><code>@header.Key</code></small>
+                                            </button>
+                                        </h6>
+                                        <div id="@headerId" class="accordion-collapse collapse"
+                                             aria-labelledby="@(headerId)_heading" data-bs-parent="#headersAccordion">
+                                            <div class="accordion-body">
+                                                <small><code>@header.Value</code></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No authentication headers found.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> User is not authenticated or authentication information is not available.
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Authentication Required</h5>
+                <p class="card-text">
+                    This page displays information about the currently authenticated user from Azure App Service built-in authentication.
+                    To see user information, please ensure that:
+                </p>
+                <ul>
+                    <li>Azure App Service authentication is enabled</li>
+                    <li>You are logged in through the configured identity provider</li>
+                    <li>The required authentication headers are being passed by Azure App Service</li>
+                </ul>
+            </div>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+        @if (Model.User.IsAuthenticated)
+        {
+            <a href="/Users/MsGraphUsers" class="btn btn-primary">View Microsoft Graph Users</a>
+        }
+    </div>
+</div>
