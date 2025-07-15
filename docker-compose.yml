@@ -5,3 +5,11 @@ services:
     build:
       context: .
       dockerfile: src/WebApp/Dockerfile
+
+  functionapp2:
+    image: ${DOCKER_REGISTRY-}functionapp2
+    container_name: "functionapp2"
+    build:
+      context: .
+      dockerfile: src/FunctionApp2/Dockerfile
+

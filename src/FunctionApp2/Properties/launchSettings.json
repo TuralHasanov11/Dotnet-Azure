@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "FunctionApp2": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 5102"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "containerRunArguments": "--init",
+      "httpPort": 5102,
+      "useSSL": false
+    }
+  }
+}

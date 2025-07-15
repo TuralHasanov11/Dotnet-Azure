@@ -4,7 +4,9 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "webapp": "StartDebugging"
+        "webapp": "StartDebugging",
+        "functionapp1": "StartDebugging",
+        "functionapp2": "StartDebugging"
       }
     }
   }
