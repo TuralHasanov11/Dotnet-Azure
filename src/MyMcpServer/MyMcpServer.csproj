@@ -18,6 +18,13 @@
     <Description>An MCP server using the MCP C# SDK.</Description>
   </PropertyGroup>
 
+  <PropertyGroup>
+	<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+	<ContainerRepository>turalhasanov/my-mcp-image</ContainerRepository>
+	<ContainerFamily>alpine</ContainerFamily>
+	<RuntimeIdentifiers>linux-x64;linux-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+
   <!-- Include additional files for browsing the MCP server. -->
   <ItemGroup>
     <None Include=".mcp\server.json" Pack="true" PackagePath="/.mcp/" />

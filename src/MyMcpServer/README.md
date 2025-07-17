@@ -78,3 +78,8 @@ Alternatively, you can configure your VS Code user settings to use your local pr
   }
 }
 ```
+
+## Publish as Container Image
+```sh
+dotnet publish /t:PublishContainer
+```

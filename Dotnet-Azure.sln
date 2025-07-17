@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		Commands.md = Commands.md
 		Directory.Build.props = Directory.Build.props
+		.vscode\mcp.json = .vscode\mcp.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJob1", "src\WebJob1\WebJob1.csproj", "{44C11240-486A-491C-A93E-DA24DB3847E9}"
@@ -24,6 +25,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp2", "src\FunctionApp2\FunctionApp2.csproj", "{B2892770-8F5D-43F4-BB75-893E42E14181}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMcpServer", "src\MyMcpServer\MyMcpServer.csproj", "{A75196AD-1613-41F2-AF50-92ECC4B6AF22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp1", "src\FunctionApp1\FunctionApp1.csproj", "{2A8233D2-99F4-433C-90F1-0AF0E52FE331}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +96,30 @@ Global
 		{A75196AD-1613-41F2-AF50-92ECC4B6AF22}.Release|x64.Build.0 = Release|Any CPU
 		{A75196AD-1613-41F2-AF50-92ECC4B6AF22}.Release|x86.ActiveCfg = Release|Any CPU
 		{A75196AD-1613-41F2-AF50-92ECC4B6AF22}.Release|x86.Build.0 = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|x64.Build.0 = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Debug|x86.Build.0 = Debug|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|x64.ActiveCfg = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|x64.Build.0 = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331}.Release|x86.Build.0 = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|x64.Build.0 = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Debug|x86.Build.0 = Debug|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|x64.ActiveCfg = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|x64.Build.0 = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|x86.ActiveCfg = Release|Any CPU
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +129,8 @@ Global
 		{44C11240-486A-491C-A93E-DA24DB3847E9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{B2892770-8F5D-43F4-BB75-893E42E14181} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{A75196AD-1613-41F2-AF50-92ECC4B6AF22} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{2A8233D2-99F4-433C-90F1-0AF0E52FE331} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{36847EB7-9D9B-4A5B-AAA3-9E504156E01E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B584021C-3E86-4A9A-AC03-EF36C00689A4}

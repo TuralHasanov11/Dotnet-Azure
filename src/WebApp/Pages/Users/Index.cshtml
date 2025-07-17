@@ -1,4 +1,5 @@
 @page
+@using System.Security.Claims
 @model WebApp.Pages.Users.IndexModel
 @{
     ViewData["Title"] = "Current User Information";
@@ -7,7 +8,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">@ViewData["Title"]</h1>
 
-    @if (Model.User.IsAuthenticated)
+    @if (Model.User is not null)
     {
         <div class="alert alert-success" role="alert">
             <i class="fas fa-check-circle"></i> User is authenticated
@@ -24,31 +25,24 @@
                             <tbody>
                                 <tr>
                                     <td><strong>User ID:</strong></td>
-                                    <td><code>@(Model.User.UserId ?? "Not available")</code></td>
+                                    <td><code>@(Model.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "Not available")</code></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Name:</strong></td>
-                                    <td>@(Model.User.Name ?? "Not available")</td>
+                                    <td>@(Model.User.Identity?.Name ?? "Not available")</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Identity Provider:</strong></td>
                                     <td>
-                                        <span class="badge bg-info">@(Model.User.IdentityProvider ?? "Unknown")</span>
+                                        <span class="badge bg-info">@(Model.User?.Identity?.AuthenticationType ?? "Unknown")</span>
                                     </td>
                                 </tr>
-                                @if (Model.User.TokenExpiresOn.HasValue)
-                                {
-                                    <tr>
-                                        <td><strong>Token Expires:</strong></td>
-                                        <td>@Model.User.TokenExpiresOn.Value.ToString("yyyy-MM-dd HH:mm:ss zzz")</td>
-                                    </tr>
-                                }
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                @if (Model.User.Principal?.Claims?.Any() == true)
+                @if (Model.User?.Claims?.Any() == true)
                 {
                     <div class="card mt-4">
                         <div class="card-header">
@@ -64,20 +58,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var claim in Model.User.Principal.Claims)
+                                        @foreach (var claim in Model.User.Claims)
                                         {
                                             <tr>
-                                                <td><code>@claim.Typ</code></td>
+                                                <td><code>@claim.Type</code></td>
                                                 <td>
-                                                    @if (claim.Typ?.Contains("email", StringComparison.OrdinalIgnoreCase) == true ||
-                                                         claim.Typ?.Contains("name", StringComparison.OrdinalIgnoreCase) == true ||
-                                                         claim.Typ?.Contains("upn", StringComparison.OrdinalIgnoreCase) == true)
+                                                    @if (claim.Type?.Contains("email", StringComparison.OrdinalIgnoreCase) == true ||
+                                                         claim.Type?.Contains("name", StringComparison.OrdinalIgnoreCase) == true ||
+                                                         claim.Type?.Contains("upn", StringComparison.OrdinalIgnoreCase) == true)
                                                     {
-                                                        @claim.Val
+                                                        @claim.Value
                                                     }
                                                     else
                                                     {
-                                                        <code>@claim.Val</code>
+                                                        <code>@claim.Value</code>
                                                     }
                                                 </td>
                                             </tr>
@@ -89,7 +83,7 @@
                     </div>
                 }
 
-                @if (Model.User.Principal != null)
+                @if (Model.User != null)
                 {
                     <div class="card mt-4">
                         <div class="card-header">
@@ -100,58 +94,17 @@
                                 <tbody>
                                     <tr>
                                         <td><strong>Authentication Type:</strong></td>
-                                        <td><code>@(Model.User.Principal.Auth_typ ?? "Not specified")</code></td>
+                                        <td><code>@(Model.User?.Identity?.AuthenticationType ?? "Not specified")</code></td>
                                     </tr>
                                     <tr>
                                         <td><strong>Name Claim Type:</strong></td>
-                                        <td><code>@(Model.User.Principal.Name_typ ?? "Not specified")</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Role Claim Type:</strong></td>
-                                        <td><code>@(Model.User.Principal.Role_typ ?? "Not specified")</code></td>
+                                        <td><code>@(Model.User?.Identity?.Name ?? "Not specified")</code></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 }
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Authentication Headers</h5>
-                    </div>
-                    <div class="card-body">
-                        @if (Model.User.AuthHeaders.Any())
-                        {
-                            <div class="accordion" id="headersAccordion">
-                                @foreach (var header in Model.User.AuthHeaders)
-                                {
-                                    var headerId = $"header_{header.Key.Replace("-", "_")}";
-                                    <div class="accordion-item">
-                                        <h6 class="accordion-header" id="@(headerId)_heading">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#@headerId" aria-expanded="false" aria-controls="@headerId">
-                                                <small><code>@header.Key</code></small>
-                                            </button>
-                                        </h6>
-                                        <div id="@headerId" class="accordion-collapse collapse"
-                                             aria-labelledby="@(headerId)_heading" data-bs-parent="#headersAccordion">
-                                            <div class="accordion-body">
-                                                <small><code>@header.Value</code></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        }
-                        else
-                        {
-                            <p class="text-muted">No authentication headers found.</p>
-                        }
-                    </div>
-                </div>
             </div>
         </div>
     }
@@ -179,7 +132,7 @@
 
     <div class="mt-4">
         <a href="/" class="btn btn-secondary">Back to Home</a>
-        @if (Model.User.IsAuthenticated)
+        @if (Model.User?.Identity?.IsAuthenticated == true)
         {
             <a href="/Users/MsGraphUsers" class="btn btn-primary">View Microsoft Graph Users</a>
         }

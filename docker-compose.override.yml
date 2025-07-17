@@ -16,3 +16,7 @@ services:
   functionapp2:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+
+  functionapp1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
