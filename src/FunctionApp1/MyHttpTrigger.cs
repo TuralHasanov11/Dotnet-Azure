@@ -18,11 +18,16 @@ public class MyHttpTrigger
 
     [Function("MyHttpTrigger")]
     public async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest _,
+        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "products/{category:alpha}/{id:int?}")] HttpRequest _,
+        string category,
+        int? id,
         CancellationToken cancellationToken)
     {
         _log.LogInformation("C# HTTP trigger function processed a request.");
         var response = await _client.GetAsync(new Uri("https://microsoft.com"), cancellationToken);
+
+        _log.LogInformation("Category: {Category}, ID: {Id}", category, id);
+
         return new OkObjectResult(await response.Content.ReadAsStringAsync(cancellationToken));
     }
 }
