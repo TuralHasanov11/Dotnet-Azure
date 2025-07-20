@@ -4,7 +4,7 @@ applyTo: "**/*.ts,"
 
 # Project coding standards for TypeScript and Vue
 
-Apply the [general coding guidelines](../copilot-instructions.md) to all code.
+Apply the [general coding guidelines](./general-coding.instructions.md) to all code.
 
 ## General Guidelines
 
