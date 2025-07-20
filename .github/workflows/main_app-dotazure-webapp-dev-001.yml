@@ -9,12 +9,10 @@ on:
       - main
   workflow_dispatch:
 
-
 env:
-  AZURE_WEBAPP_NAME: app-dotazure-webapp-dev-001   # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '9.x'          # Set this to the dot net version to use
-
+  AZURE_WEBAPP_NAME: app-dotazure-webapp-dev-001 # Set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: "." # Set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: "9.x" # Set this to the dot net version to use
 
 jobs:
   build:
@@ -56,17 +54,17 @@ jobs:
         with:
           name: web-app
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E3A4D83505864500AE31831D30D304F3 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E31B437544BE443BBF6AFF2F0D39890B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A8D6C9819AFD4D2A97EB9CF7D2F896B4 }}
+      # - name: Login to Azure
+      #   uses: azure/login@v2
+      #   with:
+      #     client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E3A4D83505864500AE31831D30D304F3 }}
+      #     tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E31B437544BE443BBF6AFF2F0D39890B }}
+      #     subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A8D6C9819AFD4D2A97EB9CF7D2F896B4 }}
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          slot-name: 'Production'
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+      # - name: Deploy to Azure Web App
+      #   id: deploy-to-webapp
+      #   uses: azure/webapps-deploy@v3
+      #   with:
+      #     app-name: ${{ env.AZURE_WEBAPP_NAME }}
+      #     slot-name: 'Production'
+      #     package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
