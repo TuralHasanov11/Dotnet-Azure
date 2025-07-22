@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
+	<PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
+	<PackageReference Include="Azure.Storage.Files.Shares" Version="12.22.0" />
+	<PackageReference Include="Azure.Storage.Queues" Version="12.22.0" />
+	<PackageReference Include="Microsoft.Extensions.Azure" Version="1.11.0" />
 	<PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="9.0.7" />
 	<PackageReference Include="Microsoft.Graph" Version="5.85.0" />
 	<PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="3.10.0" />

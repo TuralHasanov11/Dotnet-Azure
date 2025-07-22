@@ -22,7 +22,7 @@ internal class BlobCopier
 
     [Function("BlobCopier")]
     public async Task Run(
-        [BlobTrigger("samples-workitems/{name}", Connection = "MyStorageConnection")] Stream blob, string name)
+        [BlobTrigger("samples-workitems/{name}", Connection = "AzureWebJobsStorage")] Stream blob, string name)
     {
         await _copyContainerClient.UploadBlobAsync(name, blob);
         _logger.LogInformation($"Blob {name} copied!");

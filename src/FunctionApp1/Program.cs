@@ -1,5 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Azure.Core;
+using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using FunctionApp1.Middleware;
 using Microsoft.Azure.Functions.Worker;
@@ -20,8 +22,23 @@ builder.Services
 builder.Services
     .AddAzureClients(clientBuilder =>
     {
-        clientBuilder.AddBlobServiceClient(builder.Configuration.GetSection("MyStorageConnection"))
+        TokenCredential credential;
+
+        if (builder.Environment.IsProduction() || builder.Environment.IsStaging())
+        {
+            // Managed identity token credential discovered when running in Azure environments
+            credential = new ManagedIdentityCredential();
+        }
+        else
+        {
+            // Running locally on dev machine - DO NOT use in production or outside of local dev
+            credential = new DefaultAzureCredential();
+        }
+
+        clientBuilder.AddBlobServiceClient(builder.Configuration.GetSection("AzureWebJobsStorage"))
             .WithName("copierOutputBlob");
+
+        clientBuilder.UseCredential(credential);
     });
 
 builder.Services.AddOpenTelemetry()

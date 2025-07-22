@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Azure.Identity;
 using FunctionApp2.Middleware;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Azure;
@@ -30,10 +31,19 @@ var host = new HostBuilder()
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
 
+        string? managedIdentityClientId = Environment.GetEnvironmentVariable("Managed_Identity_Client_ID_Storage");
+        DefaultAzureCredential credential = new(
+        new DefaultAzureCredentialOptions
+        {
+            ManagedIdentityClientId = managedIdentityClientId
+        });
+
         services.AddAzureClients(clientBuilder =>
         {
-            clientBuilder.AddBlobServiceClient(hostContext.Configuration.GetSection("MyStorageConnection"))
-                .WithName("copierOutputBlob");
+            clientBuilder.AddBlobServiceClient(
+                hostContext.Configuration.GetSection("AzureWebJobsStorage"))
+                .WithName("copierOutputBlob")
+                .WithCredential(credential);
         });
 
     })

@@ -20,3 +20,11 @@ services:
       context: .
       dockerfile: src/FunctionApp1/Dockerfile
 
+
+  blobquickstart:
+    image: ${DOCKER_REGISTRY-}blobquickstart
+    container_name: "blobquickstart"
+    build:
+      context: .
+      dockerfile: src/BlobQuickstart/Dockerfile
+

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging.AzureAppServices;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,12 @@ builder.Services.Configure<AzureFileLoggerOptions>(options =>
 builder.Services.Configure<AzureBlobLoggerOptions>(options =>
 {
     options.BlobName = "log.txt";
+});
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnection:blobServiceUri"]!).WithName("StorageConnection");
+    clientBuilder.AddQueueServiceClient(builder.Configuration["StorageConnection:queueServiceUri"]!).WithName("StorageConnection");
+    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnection:tableServiceUri"]!).WithName("StorageConnection");
 });
 
 var app = builder.Build();

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BlobQuickstart": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
