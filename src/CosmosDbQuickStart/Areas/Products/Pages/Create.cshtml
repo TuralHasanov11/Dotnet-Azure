@@ -1,0 +1,31 @@
+@page
+@model ProductsCreateModel
+@{
+    ViewData["Title"] = "Create Product";
+}
+<h1>Create Product</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Product.name" class="form-label"></label>
+        <input asp-for="Product.name" class="form-control" />
+        <span asp-validation-for="Product.name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Product.category" class="form-label"></label>
+        <input asp-for="Product.category" class="form-control" />
+        <span asp-validation-for="Product.category" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Product.quantity" class="form-label"></label>
+        <input asp-for="Product.quantity" class="form-control" />
+        <span asp-validation-for="Product.quantity" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Product.sale" class="form-label"></label>
+        <input asp-for="Product.sale" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Product.sale" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-area="Products" asp-page="Index" class="btn btn-secondary">Back to List</a>
+</form>

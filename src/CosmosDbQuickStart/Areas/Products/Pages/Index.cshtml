@@ -1,0 +1,37 @@
+@page
+@model ProductsIndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+<h1>Products</h1>
+<a asp-area="Products" asp-page="/Create" class="btn btn-primary mb-2">Create New Product</a>
+@if (Model.Products.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Sale</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.name</td>
+                    <td>@product.category</td>
+                    <td>@product.quantity</td>
+                    <td>@(product.sale ? "Yes" : "No")</td>
+                    <td>
+                        <a asp-page="Details" asp-route-id="@product.id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-page="Edit" asp-route-id="@product.id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-page="Delete" asp-route-id="@product.id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

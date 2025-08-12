@@ -9,15 +9,15 @@
     //     "D:\\Programming\\Projects\\Roadmap\\Dotnet-Azure\\src\\MyMcpServer\\MyMcpServer.csproj"
     //   ]
     // },
-     "my-mcp-server": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "turalhasanov/my-mcp-image:latest",
-      ]
-    },
+    // "my-mcp-server": {
+    //  "command": "docker",
+    //  "args": [
+    //    "run",
+    //    "-i",
+    //    "--rm",
+    //    "turalhasanov/my-mcp-image:latest",
+    //  ]
+    //},
   },
   "inputs": [
 
