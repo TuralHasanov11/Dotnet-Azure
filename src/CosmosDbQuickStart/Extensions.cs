@@ -5,6 +5,11 @@ namespace CosmosDbQuickStart
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Seed the database with initial products if it is empty.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static async Task SeedDatabase(this WebApplication app)
         {
             CosmosClient cosmosClient = app.Services.GetRequiredService<CosmosClient>();

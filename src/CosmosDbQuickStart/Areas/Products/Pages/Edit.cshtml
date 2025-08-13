@@ -5,26 +5,26 @@
 }
 <h1>Edit Product</h1>
 <form method="post">
-    <input type="hidden" asp-for="Product.id" />
+    <input type="hidden" asp-for="Product.Id" />
     <div class="mb-3">
-        <label asp-for="Product.name" class="form-label"></label>
-        <input asp-for="Product.name" class="form-control" />
-        <span asp-validation-for="Product.name" class="text-danger"></span>
+        <label asp-for="Product.Name" class="form-label"></label>
+        <input asp-for="Product.Name" class="form-control" />
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Product.category" class="form-label"></label>
-        <input asp-for="Product.category" class="form-control" />
-        <span asp-validation-for="Product.category" class="text-danger"></span>
+        <label asp-for="Product.Category" class="form-label"></label>
+        <input asp-for="Product.Category" class="form-control" readonly />
+        <span asp-validation-for="Product.Category" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Product.quantity" class="form-label"></label>
-        <input asp-for="Product.quantity" class="form-control" />
-        <span asp-validation-for="Product.quantity" class="text-danger"></span>
+        <label asp-for="Product.Quantity" class="form-label"></label>
+        <input asp-for="Product.Quantity" class="form-control" />
+        <span asp-validation-for="Product.Quantity" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label asp-for="Product.sale" class="form-label"></label>
-        <input asp-for="Product.sale" type="checkbox" class="form-check-input" />
-        <span asp-validation-for="Product.sale" class="text-danger"></span>
+        <label asp-for="Product.Sale" class="form-label"></label>
+        <input asp-for="Product.Sale" type="checkbox" class="form-check-input" />
+        <span asp-validation-for="Product.Sale" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-area="Products" asp-page="Index" class="btn btn-secondary">Back to List</a>

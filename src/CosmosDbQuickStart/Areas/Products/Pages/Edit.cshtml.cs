@@ -8,7 +8,7 @@ public class ProductsEditModel : PageModel
 {
     private readonly ProductService _service;
     [BindProperty]
-    public Product Product { get; set; } = new("", "", "", 0, false);
+    public ProductEditViewModel Product { get; set; } = new();
 
     public ProductsEditModel(ProductService service)
     {
@@ -23,7 +23,14 @@ public class ProductsEditModel : PageModel
             return RedirectToPage("Index");
         }
 
-        Product = product;
+        Product = new ProductEditViewModel
+        {
+            Id = product.id,
+            Name = product.name,
+            Category = product.category,
+            Quantity = product.quantity,
+            Sale = product.sale
+        };
         return Page();
     }
 
@@ -34,7 +41,14 @@ public class ProductsEditModel : PageModel
             return Page();
         }
 
-        await _service.UpdateProductAsync(Product);
+        var updatedProduct = new Product(
+            id: Product.Id,
+            category: Product.Category,
+            name: Product.Name,
+            quantity: Product.Quantity,
+            sale: Product.Sale
+        );
+        await _service.UpdateProductAsync(updatedProduct);
         return RedirectToPage("Index");
     }
 }

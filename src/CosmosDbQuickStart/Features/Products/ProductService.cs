@@ -3,6 +3,9 @@ using Microsoft.Azure.Cosmos.Linq;
 
 namespace CosmosDbQuickStart.Features.Products;
 
+/// <summary>
+/// Service for managing products in the Cosmos DB catalog.
+/// </summary>
 public class ProductService
 {
     private readonly ILogger<ProductService> _logger;   
