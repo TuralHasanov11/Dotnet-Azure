@@ -8,7 +8,7 @@ public class ProductsCreateModel : PageModel
 {
     private readonly ProductService _service;
     [BindProperty]
-    public Product Product { get; set; } = new("", "", "", 0, false);
+    public ProductCreateViewModel Product { get; set; } = new();
 
     public ProductsCreateModel(ProductService service)
     {
@@ -24,9 +24,14 @@ public class ProductsCreateModel : PageModel
             return Page();
         }
 
-        // Ensure id is set before saving
-        Product = Product with { id = Guid.NewGuid().ToString() };
-        await _service.CreateProductAsync(Product);
+        var newProduct = new Product(
+            id: Guid.NewGuid().ToString(),
+            category: Product.Category,
+            name: Product.Name,
+            quantity: Product.Quantity,
+            sale: Product.Sale
+        );
+        await _service.CreateProductAsync(newProduct);
         return RedirectToPage("Index");
     }
 }

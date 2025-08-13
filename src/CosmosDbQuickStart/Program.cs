@@ -1,6 +1,7 @@
 using CosmosDbQuickStart;
 using CosmosDbQuickStart.Features.Products;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton(
     s => new CosmosClient(
         accountEndpoint: "https://localhost:8081/", 
-        authKeyOrResourceToken: "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="));
+        authKeyOrResourceToken: "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
+        clientOptions: new CosmosClientOptions() { AllowBulkExecution = true })
+    );
 // or if using Azure Cosmos DB with managed identity, uncomment the following lines:
 //builder.Services.AddSingleton(
 //    s => new CosmosClient(

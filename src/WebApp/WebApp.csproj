@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\User\**" />
+    <Content Remove="Pages\User\**" />
+    <EmbeddedResource Remove="Pages\User\**" />
+    <None Remove="Pages\User\**" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
 	<PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
 	<PackageReference Include="Azure.Storage.Files.Shares" Version="12.22.0" />
@@ -20,10 +27,6 @@
 	<PackageReference Include="Microsoft.Graph" Version="5.85.0" />
 	<PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="3.10.0" />
 	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\User\" />
   </ItemGroup>
 
   <ItemGroup>

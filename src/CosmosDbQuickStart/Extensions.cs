@@ -63,10 +63,30 @@ namespace CosmosDbQuickStart
                     ),
                 };
 
+                List<Task> tasks = new(products.Count);
+
                 foreach (var product in products)
                 {
-                    await container.Container.CreateItemAsync(product, new PartitionKey(product.category));
+                    tasks.Add(
+                        container.Container.CreateItemAsync(product, new PartitionKey(product.category))
+                            .ContinueWith(itemResponse =>
+                            {
+                                if (!itemResponse.IsCompletedSuccessfully)
+                                {
+                                    AggregateException? innerExceptions = itemResponse?.Exception?.Flatten();
+                                    if (innerExceptions?.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
+                                    {
+                                        Console.WriteLine($"Received {cosmosException.StatusCode} ({cosmosException.Message}).");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Exception {innerExceptions?.InnerExceptions.FirstOrDefault()}.");
+                                    }
+                                }
+                            }));
                 }
+
+                await Task.WhenAll(tasks);
 
                 Console.WriteLine("Database seeded with initial products.");
             }

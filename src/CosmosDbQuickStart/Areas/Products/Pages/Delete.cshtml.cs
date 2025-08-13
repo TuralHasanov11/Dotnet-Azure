@@ -27,8 +27,16 @@ public class ProductsDeleteModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(string id)
     {
+        var product = await _service.GetProductAsync(id);
+        if (product == null)
+        {
+            return RedirectToPage("Index");
+        }
+
+        Product = product;
+
         await _service.DeleteProductAsync(Product);
         return RedirectToPage("Index");
     }
